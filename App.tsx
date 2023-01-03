@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 let timer: null | ReturnType<typeof setInterval> = null;
 let ss = 0;
@@ -7,59 +7,56 @@ let mm = 0;
 let hh = 0;
 
 export default function App() {
-
   const [numero, setNumero] = useState('0');
   const [botao, setBotao] = useState('Vai!');
   const [ultimo, setUltimo] = useState('');
 
- 
-  function vai(){
-    if(timer !== null){
+  function vai() {
+    if (timer !== null) {
       clearInterval(timer);
       timer = null;
       setBotao('Vai!');
-    }else{
-      timer = setInterval(()=>{
+    } else {
+      timer = setInterval(() => {
         ss++;
-        if(ss == 60){
+        if (ss == 60) {
           ss = 0;
           mm++;
         }
-        if(mm == 60){
+        if (mm == 60) {
           mm = 0;
           hh++;
         }
-        let format = 
-        (hh < 10 ? '0' + hh : hh) + ':'
-         + (mm < 10 ? '0' + mm : mm) + ':' 
-         + (ss < 10 ? '0' + ss : ss);
+        let format =
+          (hh < 10 ? '0' + hh : hh) +
+          ':' +
+          (mm < 10 ? '0' + mm : mm) +
+          ':' +
+          (ss < 10 ? '0' + ss : ss);
 
         setNumero(format);
       }, 1000);
-      setBotao('PARAR')
+      setBotao('PARAR');
     }
   }
-  function limpar(){
-    if(timer !== null){
+  function limpar() {
+    if (timer !== null) {
       clearInterval(timer);
-      timer = null
+      timer = null;
     }
     setUltimo(numero);
     setNumero('00:00:00');
     ss = 0;
     mm = 0;
     hh = 0;
-    setBotao('Vai!')
+    setBotao('Vai!');
   }
 
   return (
     <View style={styles.container}>
-      <Image source={require('./src/crono.png')}/>
-      <Text style={styles.timer}>
-          {numero}
-      </Text>
+      <Image source={require('./src/crono.png')} />
+      <Text style={styles.timer}>{numero}</Text>
       <View style={styles.btnArea}>
-
         <TouchableOpacity style={styles.btn} onPress={vai}>
           <Text style={styles.btnTexto}> {botao} </Text>
         </TouchableOpacity>
@@ -67,12 +64,11 @@ export default function App() {
         <TouchableOpacity style={styles.btn} onPress={limpar}>
           <Text style={styles.btnTexto}> Limpar </Text>
         </TouchableOpacity>
-
       </View>
 
       <View style={styles.areaUltima}>
         <Text style={styles.textoCorrida}>
-          { ultimo ? 'Ultimo tempo: ' + ultimo : ''}
+          {ultimo ? 'Ultimo tempo: ' + ultimo : ''}
         </Text>
       </View>
     </View>
@@ -84,18 +80,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#00aeef'
+    backgroundColor: '#00aeef',
   },
   timer: {
     marginTop: -160,
     fontSize: 45,
     fontWeight: 'bold',
-    color: '#FFF'
+    color: '#FFF',
   },
   btnArea: {
     flexDirection: 'row',
     marginTop: 130,
-    height: 40
+    height: 40,
   },
   btn: {
     flex: 1,
@@ -104,19 +100,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     height: 40,
     margin: 17,
-    borderRadius: 9
+    borderRadius: 9,
   },
   btnTexto: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#00aeef'
+    color: '#00aeef',
   },
   areaUltima: {
-    marginTop: 30
+    marginTop: 30,
   },
   textoCorrida: {
     fontSize: 23,
     color: '#FFF',
-    fontStyle: 'italic'
-  }
+    fontStyle: 'italic',
+  },
 });
